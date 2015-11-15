@@ -10,7 +10,6 @@ protected:
     int free_ctr;
     int colors;
     int points = 0;
-    const sf::Color color_tab[7] = {sf::Color::Black, sf::Color::Red, sf::Color::Blue, sf::Color::Magenta, sf::Color::Yellow, sf::Color::Green, sf::Color::Cyan};
 public:
     Board(int colors);
     bool make_move(sf::Vector2u start, sf::Vector2u stop);
@@ -24,12 +23,6 @@ public:
     int get_points();
     void draw();
     bool is_empty(sf::Vector2u a);
-};
-
-class SFMLBoard : public Board
-{
-public:
-    SFMLBoard(int x) : Board(x) {}
-    void sfml_draw(sf::RenderWindow &window);
+    int get_element(int x, int y) const;
 };
 

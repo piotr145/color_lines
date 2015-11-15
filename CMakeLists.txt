@@ -11,6 +11,8 @@ set(EXECUTABLE_NAME "color_lines")
 set(sources
     "src/board.cpp"
     "src/main.cpp"
+    "src/game.cpp"
+    "src/config.cpp"
 )
 
 add_executable(${EXECUTABLE_NAME} ${sources})

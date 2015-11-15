@@ -233,24 +233,13 @@ void Board::draw()
     }
 }
 
-void SFMLBoard::sfml_draw(sf::RenderWindow &window)
-{
-    window.clear(sf::Color::Black);
-    for(int x = 0; x < 9; ++x)
-        for(int y = 0; y < 9; ++y)
-        {
-            sf::CircleShape block(0.45*(window.getSize().x/9.0));
-            block.setFillColor(color_tab[tab[x][y]]);
-            block.setPosition(
-                    (window.getSize().x/9.0)*x,
-                    (window.getSize().y/9.0)*y);
-            window.draw(block);
-        }
-    window.display();
-}
-
 bool Board::is_empty(sf::Vector2u a)
 {
     return tab[a.x][a.y] == 0;
+}
+
+int Board::get_element(int x, int y) const
+{
+    return tab[x][y];
 }
 
