@@ -1,3 +1,6 @@
+#executable
+color_lines
+
 # Compiled Object files
 *.slo
 *.lo
