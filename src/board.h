@@ -4,7 +4,7 @@
 
 class Board
 {
-public:
+private:
     int tab[9][9];
     int to_remove[9][9];
     int free_ctr;
