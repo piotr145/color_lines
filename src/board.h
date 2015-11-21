@@ -18,6 +18,7 @@ private:
 
 public:
     Board(int colors);
+    Board() {}
     bool make_move(sf::Vector2u start, sf::Vector2u stop);
     void mark_to_rem();
     bool is_playing();
