@@ -8,6 +8,7 @@ private:
     int draw_x=600, draw_y=600; //size of draw area
     std::string window_name="snake";
     bool grid_mode = true;
+    int colors_number=5;
 
 public:
     sf::Color get_color(int x);
@@ -16,5 +17,6 @@ public:
     bool get_grid_mode();
     int get_draw_x();
     int get_draw_y();
+    int get_colors_number();
 };
 

@@ -23,3 +23,7 @@ int Config::get_draw_x() {
 int Config::get_draw_y() {
     return draw_y;
 }
+
+int Config::get_colors_number() {
+    return colors_number;
+}

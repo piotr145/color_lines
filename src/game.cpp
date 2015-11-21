@@ -1,3 +1,4 @@
+#include <boost/lexical_cast.hpp>
 #include "game.h"
 #include "config.h"
 
@@ -50,7 +51,8 @@ Game::Game() {
             config->get_window_name(),
             sf::Style::Default,
             sf::ContextSettings(0, 0, 2));
-    board = Board(5);
+    board = Board(config->get_colors_number());
+    font.loadFromFile("/usr/share/fonts/TTF/arial.ttf");
 }
 
 void Game::loop() {
@@ -83,10 +85,24 @@ void Game::loop() {
         draw_balls();
         if(config->get_grid_mode())
             draw_grid();
+        draw_points();
         window->display();
     }
 }
 
 Game::~Game() {
     delete window;
+}
+
+void Game::draw_points() {
+    sf::Text res_string("result:", font, 30);
+    res_string.setColor(sf::Color::White);
+    res_string.setPosition(sf::Vector2f(620, 40));
+    window->draw(res_string);
+
+    sf::Text points(boost::lexical_cast<std::string>
+                            (board.get_points()*5) + " pkt", font, 30);
+    points.setColor(sf::Color::White);
+    points.setPosition(sf::Vector2f(620, 80));
+    window->draw(points);
 }

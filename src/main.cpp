@@ -12,4 +12,3 @@ int main() {
     delete config;
     exit(0);
 }
-
