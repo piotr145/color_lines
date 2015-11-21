@@ -29,7 +29,7 @@ void draw_board(sf::RenderWindow &window, const Board &board) {
 
 void game_loop() {
     sf::RenderWindow window(config->get_video_mode(),
-            "snake",
+            config->get_window_name(),
             sf::Style::Default,
             sf::ContextSettings(0,0,2)
             );

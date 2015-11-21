@@ -4,8 +4,8 @@
 class Config {
 private:
     const sf::Color color_tab[7] = {sf::Color::Black, sf::Color::Red, sf::Color::Blue, sf::Color::Magenta, sf::Color::Yellow, sf::Color::Green, sf::Color::Cyan};
-    int window_x, window_y; //size of window
-    std::string window_name;
+    int window_x=600, window_y=600; //size of window
+    std::string window_name="snake";
 
 public:
     sf::Color get_color(int x);
