@@ -2,8 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <bits/stdc++.h>
 
-class Board
-{
+class Board {
 private:
     int tab[9][9];
     int to_remove[9][9];
