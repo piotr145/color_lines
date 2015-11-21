@@ -17,26 +17,26 @@ void draw_board(sf::RenderWindow &window, const Board &board) {
     window.clear(sf::Color::Black);
     for(int x = 0; x < 9; ++x)
         for(int y = 0; y < 9; ++y) {
-            sf::CircleShape block(0.45*(window.getSize().x/9.0));
+            sf::CircleShape block(0.45*(config->get_draw_x()/9.0));
             block.setFillColor(config->get_color(board.get_element(x, y)));
             block.setPosition(
-                    (window.getSize().x/9.0)*x,
-                    (window.getSize().y/9.0)*y);
+                    (config->get_draw_x()/9.0)*x,
+                    (config->get_draw_y()/9.0)*y);
             window.draw(block);
         }
     //draw grid
     if(config->get_grid_mode()) {
         for (int x = 1; x < 9; ++x) {
             sf::RectangleShape line(sf::Vector2f(
-                    window.getSize().x / 180.0, window.getSize().y));
+                    config->get_draw_x() / 180.0, config->get_draw_y()));
             line.setPosition(sf::Vector2f(
-                    window.getSize().x / 9.0 * x - window.getSize().x / 100.0, 0));
+                    config->get_draw_x() / 9.0 * x - config->get_draw_x() / 100.0, 0));
             line.setFillColor(sf::Color::White);
             window.draw(line);
         }
         for (int y = 1; y < 9; ++y) {
-            sf::RectangleShape line(sf::Vector2f(window.getSize().x, window.getSize().y / 180.0));
-            line.setPosition(sf::Vector2f(0, window.getSize().y / 9.0 * y - window.getSize().y / 100.0));
+            sf::RectangleShape line(sf::Vector2f(config->get_draw_x(), config->get_draw_y() / 180.0));
+            line.setPosition(sf::Vector2f(0, config->get_draw_y() / 9.0 * y - config->get_draw_y() / 100.0));
             line.setFillColor(sf::Color::White);
             window.draw(line);
         }
@@ -61,8 +61,8 @@ void game_loop() {
                 window.close();
             if(event.type == sf::Event::MouseButtonPressed) {
                 sf::Vector2u clicked_field = sf::Vector2u(
-                        get_pos(window.getSize().x, event.mouseButton.x), 
-                        get_pos(window.getSize().y, event.mouseButton.y));
+                        get_pos(config->get_draw_x(), event.mouseButton.x),
+                        get_pos(config->get_draw_y(), event.mouseButton.y));
 
                 if(pos == NULLVECTOR)
                     pos = clicked_field;

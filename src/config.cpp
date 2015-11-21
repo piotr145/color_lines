@@ -15,3 +15,11 @@ std::string Config::get_window_name() {
 bool Config::get_grid_mode() {
     return grid_mode;
 }
+
+int Config::get_draw_x() {
+    return draw_x;
+}
+
+int Config::get_draw_y() {
+    return draw_y;
+}
