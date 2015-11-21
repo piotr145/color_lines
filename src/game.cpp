@@ -24,6 +24,23 @@ void draw_board(sf::RenderWindow &window, const Board &board) {
                     (window.getSize().y/9.0)*y);
             window.draw(block);
         }
+    //draw grid
+    if(config->get_grid_mode()) {
+        for (int x = 1; x < 9; ++x) {
+            sf::RectangleShape line(sf::Vector2f(
+                    window.getSize().x / 180.0, window.getSize().y));
+            line.setPosition(sf::Vector2f(
+                    window.getSize().x / 9.0 * x - window.getSize().x / 100.0, 0));
+            line.setFillColor(sf::Color::White);
+            window.draw(line);
+        }
+        for (int y = 1; y < 9; ++y) {
+            sf::RectangleShape line(sf::Vector2f(window.getSize().x, window.getSize().y / 180.0));
+            line.setPosition(sf::Vector2f(0, window.getSize().y / 9.0 * y - window.getSize().y / 100.0));
+            line.setFillColor(sf::Color::White);
+            window.draw(line);
+        }
+    }
     window.display();
 }
 

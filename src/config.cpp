@@ -11,3 +11,7 @@ sf::VideoMode Config::get_video_mode() {
 std::string Config::get_window_name() {
     return window_name;
 }
+
+bool Config::get_grid_mode() {
+    return grid_mode;
+}
