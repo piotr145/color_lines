@@ -26,17 +26,21 @@ void draw_board(sf::RenderWindow &window, const Board &board) {
         }
     //draw grid
     if(config->get_grid_mode()) {
-        for (int x = 1; x < 9; ++x) {
+        for (int x = 1; x <= 9; ++x) {
             sf::RectangleShape line(sf::Vector2f(
-                    config->get_draw_x() / 180.0, config->get_draw_y()));
-            line.setPosition(sf::Vector2f(
-                    config->get_draw_x() / 9.0 * x - config->get_draw_x() / 100.0, 0));
+                    config->get_draw_x() / 180.0,
+                    config->get_draw_y() - config->get_draw_x() / 100.0));
+            line.setPosition(
+                    sf::Vector2f(config->get_draw_x() / 9.0 * x - config->get_draw_x() / 100.0, 0));
             line.setFillColor(sf::Color::White);
             window.draw(line);
         }
-        for (int y = 1; y < 9; ++y) {
-            sf::RectangleShape line(sf::Vector2f(config->get_draw_x(), config->get_draw_y() / 180.0));
-            line.setPosition(sf::Vector2f(0, config->get_draw_y() / 9.0 * y - config->get_draw_y() / 100.0));
+        for (int y = 1; y <= 9; ++y) {
+            sf::RectangleShape line(sf::Vector2f(
+                    config->get_draw_x() - config->get_draw_y() / 100.0,
+                    config->get_draw_y() / 180.0));
+            line.setPosition(
+                    sf::Vector2f(0, config->get_draw_y() / 9.0 * y - config->get_draw_y() / 100.0));
             line.setFillColor(sf::Color::White);
             window.draw(line);
         }

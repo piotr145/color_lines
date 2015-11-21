@@ -4,7 +4,7 @@
 class Config {
 private:
     const sf::Color color_tab[7] = {sf::Color::Black, sf::Color::Red, sf::Color::Blue, sf::Color::Magenta, sf::Color::Yellow, sf::Color::Green, sf::Color::Cyan};
-    int window_x=600, window_y=600; //size of window
+    int window_x=750, window_y=600; //size of window
     int draw_x=600, draw_y=600; //size of draw area
     std::string window_name="snake";
     bool grid_mode = true;
