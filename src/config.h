@@ -9,6 +9,7 @@ private:
     std::string window_name="snake";
     bool grid_mode = true;
     int colors_number=5;
+    std::string high_scores_file = "$HOME/.color_lines_hs";
 
 public:
     sf::Color get_color(int x);
@@ -18,5 +19,5 @@ public:
     int get_draw_x();
     int get_draw_y();
     int get_colors_number();
+    std::string get_high_scores_file();
 };
-

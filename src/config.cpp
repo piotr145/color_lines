@@ -27,3 +27,7 @@ int Config::get_draw_y() {
 int Config::get_colors_number() {
     return colors_number;
 }
+
+std::string Config::get_high_scores_file() {
+    return high_scores_file;
+}
