@@ -6,13 +6,12 @@
 
 class Game {
 private:
-    sf::RenderWindow *window;
+    std::unique_ptr<sf::RenderWindow> window;
     Board board;
     int get_pos(int size, float point);
     sf::Font font;
 public:
     Game();
-    ~Game();
     void loop();
     void draw_balls();
     void draw_grid();

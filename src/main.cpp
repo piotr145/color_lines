@@ -2,13 +2,12 @@
 #include "game.h"
 #include "config.h"
 
-Config* config;
+std::unique_ptr<Config> config;
 
 int main() {
-    config = new Config;
+    config.reset(new Config);
     srand(time(0));
     Game game;
     game.loop();
-    delete config;
     exit(0);
 }

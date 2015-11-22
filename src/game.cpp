@@ -4,7 +4,7 @@
 
 #define NULLVECTOR sf::Vector2u(10, 10)
 
-extern Config *config;
+extern std::unique_ptr<Config> config;
 
 int Game::get_pos(int size, float point) {
     int res = 0;
@@ -47,10 +47,10 @@ void Game::draw_grid() {
 }
 
 Game::Game() {
-    window = new sf::RenderWindow(config->get_video_mode(),
+    window.reset(new sf::RenderWindow(config->get_video_mode(),
             config->get_window_name(),
             sf::Style::Default,
-            sf::ContextSettings(0, 0, 2));
+            sf::ContextSettings(0, 0, 2)));
     board = Board(config->get_colors_number());
     font.loadFromFile("/usr/share/fonts/TTF/arial.ttf");
 }
@@ -88,10 +88,6 @@ void Game::loop() {
         draw_points();
         window->display();
     }
-}
-
-Game::~Game() {
-    delete window;
 }
 
 void Game::draw_points() {
