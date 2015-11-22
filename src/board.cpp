@@ -131,12 +131,14 @@ std::vector<std::vector<sf::Vector2u>> Board::get_lines() {
             k.emplace_back(x, y);
         res.push_back(move(k));
     }
+
     for(int y = 0; y < 9; ++y) {
         std::vector<sf::Vector2u> k;
         for(int x = 0; x < 9; ++x)
             k.emplace_back(x, y);
         res.push_back(move(k));
     }
+
     for(int i = 0; i < 9; ++i)
         res.push_back(skew_line_up(0, i));
 
@@ -213,4 +215,3 @@ bool Board::is_empty(sf::Vector2u a) {
 int Board::get_element(int x, int y) const {
     return tab[x][y];
 }
-

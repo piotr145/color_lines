@@ -15,16 +15,15 @@ private:
     void remove_marked();
     void place_new(int i);
     bool check_for_move(sf::Vector2u start, sf::Vector2u stop);
+    void mark_to_rem();
 
 public:
     Board(int colors);
     Board() {}
     bool make_move(sf::Vector2u start, sf::Vector2u stop);
-    void mark_to_rem();
     bool is_playing();
     int get_points();
     void draw();
     bool is_empty(sf::Vector2u a);
     int get_element(int x, int y) const;
 };
-

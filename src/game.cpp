@@ -86,6 +86,7 @@ void Game::loop() {
         if(config->get_grid_mode())
             draw_grid();
         draw_points();
+        draw_game_over();
         window->display();
     }
 }
@@ -101,4 +102,14 @@ void Game::draw_points() {
     points.setColor(sf::Color::White);
     points.setPosition(sf::Vector2f(620, 80));
     window->draw(points);
+}
+
+void Game::draw_game_over() {
+    //if game is over print "GAME OVER"
+    if(board.is_playing())
+        return;
+    sf::Text text("GAME OVER", font, 100);
+    text.setColor(sf::Color::White);
+    text.setPosition(sf::Vector2f(100, 200));
+    window->draw(text);
 }
