@@ -5,15 +5,26 @@ extern std::unique_ptr<Config> config;
 
 
 void High_scores::load() {
+    tab.clear(); // clear prevoius content of tab
     std::fstream file;
     file.open(config->get_high_scores_file(), std::fstream::in);
     if(!file.is_open())
         std::cerr << "WARNING: unable to open high score file" << std::endl;
 
-    for(int i = 0; i < 10 && !file.eof(); ++i) {
-        HS_Record tmp;
-        file >> tmp.name >> tmp.score;
-        tab.push_back(tmp);
+    bool cont = false; // true if next value in file is score
+    std::string name;
+    unsigned score;
+    while(!file.eof()) {
+        if(tab.size() >= 10)
+            break; // we only care about 10 best scores
+        if(!cont) {
+            file >> name;
+        }
+        else {
+            file >> score;
+            tab.push_back({name, score});
+        }
+        cont = !cont;
     }
 
     file.close();

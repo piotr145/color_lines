@@ -1,10 +1,14 @@
 #include <boost/lexical_cast.hpp>
 #include "game.h"
 #include "config.h"
+#include "HS_window.h"
+#include "high_scores.h"
 
 #define NULLVECTOR sf::Vector2u(10, 10)
 
 extern std::unique_ptr<Config> config;
+extern sf::Font font;
+extern std::mutex display_mutex;
 
 int Game::get_pos(int size, float point) {
     int res = 0;
@@ -52,7 +56,6 @@ Game::Game() {
             sf::Style::Default,
             sf::ContextSettings(0, 0, 2)));
     board = Board(config->get_colors_number());
-    font.loadFromFile("/usr/share/fonts/TTF/arial.ttf");
 }
 
 void Game::loop() {
@@ -61,8 +64,12 @@ void Game::loop() {
     while (window->isOpen()) {
         sf::Event event;
         while (window->pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
+            if (event.type == sf::Event::Closed) {
+                for(std::unique_ptr<sf::Thread> &it: help_windows) {
+                    it->terminate();
+                }
                 window->close();
+            }
             if (event.type == sf::Event::MouseButtonPressed) {
                 sf::Vector2u clicked_field = sf::Vector2u(
                         get_pos(config->get_draw_x(), event.mouseButton.x),
@@ -79,6 +86,11 @@ void Game::loop() {
                     pos = NULLVECTOR;
                 }
             }
+            if(event.type == sf::Event::KeyReleased) {
+                if(event.key.code == sf::Keyboard::H) {
+                    create_HS_window();
+                }
+            }
         }
 
         window->clear(sf::Color::Black);
@@ -87,7 +99,10 @@ void Game::loop() {
             draw_grid();
         draw_points();
         draw_game_over();
+
+        display_mutex.lock();
         window->display();
+        display_mutex.unlock();
     }
 }
 
@@ -112,4 +127,10 @@ void Game::draw_game_over() {
     text.setColor(sf::Color::White);
     text.setPosition(sf::Vector2f(100, 200));
     window->draw(text);
+}
+
+void Game::create_HS_window() {
+    High_scores hs;
+    help_windows.emplace_back(new sf::Thread(HS_window_create, hs.get_scores()));
+    help_windows.back()->launch();
 }
