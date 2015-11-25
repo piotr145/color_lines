@@ -16,7 +16,8 @@ private:
     void draw_grid();
     void draw_points();
     void draw_game_over();
-    void create_HS_window();
+    void create_HS_window_thread();
+    void create_name_window_thread();
 public:
     Game();
     void loop();

@@ -3,12 +3,15 @@
 #include "config.h"
 #include "HS_window.h"
 #include "high_scores.h"
+#include "get_name.h"
 
 #define NULLVECTOR sf::Vector2u(10, 10)
 
 extern std::unique_ptr<Config> config;
 extern sf::Font font;
 extern std::mutex display_mutex;
+extern High_scores high_scores;
+extern std::mutex high_scores_mutex;
 
 int Game::get_pos(int size, float point) {
     int res = 0;
@@ -65,10 +68,7 @@ void Game::loop() {
         sf::Event event;
         while (window->pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
-                for(std::unique_ptr<sf::Thread> &it: help_windows) {
-                    it->terminate();
-                }
-                window->close();
+                exit(0);
             }
             if (event.type == sf::Event::MouseButtonPressed) {
                 sf::Vector2u clicked_field = sf::Vector2u(
@@ -88,7 +88,13 @@ void Game::loop() {
             }
             if(event.type == sf::Event::KeyReleased) {
                 if(event.key.code == sf::Keyboard::H) {
-                    create_HS_window();
+                    create_HS_window_thread();
+                }
+                if(event.key.code == sf::Keyboard::Q) {
+                    create_name_window_thread();
+                }
+                if(event.key.code == sf::Keyboard::F2) {
+                    board = Board(config->get_colors_number());
                 }
             }
         }
@@ -100,9 +106,9 @@ void Game::loop() {
         draw_points();
         draw_game_over();
 
-        display_mutex.lock();
+        std::lock_guard<std::mutex> lock(display_mutex);
+
         window->display();
-        display_mutex.unlock();
     }
 }
 
@@ -129,8 +135,13 @@ void Game::draw_game_over() {
     window->draw(text);
 }
 
-void Game::create_HS_window() {
-    High_scores hs;
-    help_windows.emplace_back(new sf::Thread(HS_window_create, hs.get_scores()));
+void Game::create_HS_window_thread() {
+    std::lock_guard<std::mutex> lock(high_scores_mutex);
+    help_windows.emplace_back(new sf::Thread(HS_window_create, high_scores.get_scores()));
+    help_windows.back()->launch();
+}
+
+void Game::create_name_window_thread() {
+    help_windows.emplace_back(new sf::Thread(create_name_window, board.get_points()));
     help_windows.back()->launch();
 }

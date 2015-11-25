@@ -13,7 +13,7 @@ void HS_window_create(std::vector<HS_Record> tab) {
 HS_window::HS_window(std::vector<HS_Record> tab) {
     this->tab = tab;
     window.reset(new sf::RenderWindow(
-            sf::VideoMode(350, std::min(400, 100 + (int)tab.size()*50)),
+            sf::VideoMode(350, std::max(400, 100 + (int)tab.size()*50)),
             "snake"));
 }
 
@@ -51,7 +51,6 @@ void HS_window::draw() {
         posy += 50;
     }
 
-    display_mutex.lock();
+    std::lock_guard<std::mutex> lock(display_mutex);
     window->display();
-    display_mutex.unlock();
 }

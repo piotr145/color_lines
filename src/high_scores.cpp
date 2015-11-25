@@ -5,7 +5,7 @@ extern std::unique_ptr<Config> config;
 
 
 void High_scores::load() {
-    tab.clear(); // clear prevoius content of tab
+    tab.clear(); // clear previous content of tab
     std::fstream file;
     file.open(config->get_high_scores_file(), std::fstream::in);
     if(!file.is_open())

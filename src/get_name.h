@@ -3,14 +3,16 @@
 #include <bits/stdc++.h>
 #include "high_scores.h"
 
-void HS_window_create(std::vector<HS_Record> tab);
+void create_name_window(int score);
 
-class HS_window {
+class Get_name_window {
 private:
     std::unique_ptr<sf::RenderWindow> window;
-    std::vector<HS_Record> tab;
+    int score;
+    std::string name;
+    bool name_to_long = false;
 public:
-    HS_window(std::vector<HS_Record> tab);
+    Get_name_window(int score);
     void window_loop();
     void draw();
 };

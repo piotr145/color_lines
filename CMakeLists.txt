@@ -14,7 +14,8 @@ set(sources
     "src/game.cpp"
     "src/config.cpp"
     "src/high_scores.cpp"
-    "src/HS_window.cpp")
+    "src/HS_window.cpp"
+    "src/get_name.cpp")
 
 add_executable(${EXECUTABLE_NAME} ${sources})
 
