@@ -103,7 +103,7 @@ bool Board::make_move(sf::Vector2u start, sf::Vector2u stop) {
     remove_marked();
     place_new(3);
     mark_to_rem();
-    points += count_marked();
+    points += 4*count_marked();
     remove_marked();
 
     return true;

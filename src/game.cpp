@@ -81,9 +81,13 @@ void Game::loop() {
                     pos = NULLVECTOR;
                 else if (!board.is_empty(clicked_field))
                     pos = clicked_field;
-                else {
+                else if(board.is_playing()){
                     board.make_move(pos, clicked_field);
                     pos = NULLVECTOR;
+                    std::lock_guard<std::mutex> lock(high_scores_mutex);
+                    if(!board.is_playing() && high_scores.is_high(board.get_points())) {
+                        create_name_window_thread();
+                    }
                 }
             }
             if(event.type == sf::Event::KeyReleased) {
@@ -107,7 +111,6 @@ void Game::loop() {
         draw_game_over();
 
         std::lock_guard<std::mutex> lock(display_mutex);
-
         window->display();
     }
 }
@@ -119,7 +122,7 @@ void Game::draw_points() {
     window->draw(res_string);
 
     sf::Text points(boost::lexical_cast<std::string>
-                            (board.get_points()*5) + " pkt", font, 30);
+                            (board.get_points()) + " pkt", font, 30);
     points.setColor(sf::Color::White);
     points.setPosition(sf::Vector2f(620, 80));
     window->draw(points);
