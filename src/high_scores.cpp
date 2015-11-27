@@ -8,8 +8,10 @@ void High_scores::load() {
     tab.clear(); // clear previous content of tab
     std::fstream file;
     file.open(config->get_high_scores_file(), std::fstream::in);
-    if(!file.is_open())
+    if(!file.is_open()) {
         std::cerr << "WARNING: unable to open high score file" << std::endl;
+        return;
+    }
 
     bool cont = false; // true if next value in file is score
     std::string name;
@@ -38,6 +40,7 @@ bool High_scores::is_high(unsigned int score) {
 }
 
 void High_scores::update(HS_Record rec) {
+    load();
     std::vector<HS_Record> newtab;
     int i = 0;
     for(; i < tab.size() && tab[i].score >= rec.score; ++i) {
@@ -47,7 +50,7 @@ void High_scores::update(HS_Record rec) {
     for(; i < tab.size(); ++i) {
         newtab.push_back(tab[i]);
     }
-    newtab.resize(10);
+    newtab.resize(std::min(static_cast<int>(newtab.size()), 10));
     tab = move(newtab);
     write();
 }
