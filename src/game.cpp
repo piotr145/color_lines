@@ -93,10 +93,11 @@ void Game::loop() {
                 if(event.key.code == sf::Keyboard::H) {
                     create_HS_window_thread();
                 }
-                if(event.key.code == sf::Keyboard::Q) {
-                    create_name_window_thread();
-                }
                 if(event.key.code == sf::Keyboard::F2) {
+                    std::lock_guard<std::mutex> lock(high_scores_mutex);
+                    if(high_scores.is_high(board.get_points())) {
+                        create_name_window_thread();
+                    }
                     board = Board(config->get_colors_number());
                 }
             }
