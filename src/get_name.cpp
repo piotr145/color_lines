@@ -5,7 +5,7 @@ extern std::mutex high_scores_mutex;
 extern std::mutex display_mutex;
 extern sf::Font font;
 
-Get_name_window::Get_name_window(int score) {
+Get_name_window::Get_name_window(unsigned score) {
     this->score = score;
     window.reset(new sf::RenderWindow(
             sf::VideoMode(350, 200),

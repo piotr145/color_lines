@@ -2,7 +2,6 @@
 #include "game.h"
 #include "config.h"
 #include "HS_window.h"
-#include "high_scores.h"
 #include "get_name.h"
 
 #define NULLVECTOR sf::Vector2u(10, 10)

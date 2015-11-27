@@ -13,7 +13,7 @@ void HS_window_create(std::vector<HS_Record> tab) {
 HS_window::HS_window(std::vector<HS_Record> tab) {
     this->tab = tab;
     window.reset(new sf::RenderWindow(
-            sf::VideoMode(350, std::max(400, 100 + (int)tab.size()*50)),
+            sf::VideoMode(350, std::max(400, 100 + static_cast<int>(tab.size()*50))),
             "snake"));
 }
 

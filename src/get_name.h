@@ -12,7 +12,7 @@ private:
     std::string name;
     bool name_to_long = false;
 public:
-    Get_name_window(int score);
+    Get_name_window(unsigned score);
     void window_loop();
     void draw();
 };
