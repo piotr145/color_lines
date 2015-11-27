@@ -27,7 +27,8 @@ void Get_name_window::window_loop() {
             if(event.type == sf::Event::KeyReleased) {
                 name_to_long = false; // pressing any kay should reset this value
                 if(event.key.code == sf::Keyboard::BackSpace) {
-                    name.pop_back();
+                    if(name.size() > 0)
+                        name.pop_back();
                 }
                 if(event.key.code == sf::Keyboard::Return) {
                     if(name.size() < 10) {
