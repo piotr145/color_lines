@@ -29,6 +29,9 @@ int Config::get_colors_number() {
 }
 
 std::string Config::get_high_scores_file() {
+    if(high_scores_file == "") {
+        high_scores_file = std::string(std::getenv("HOME")) + "/.color_lines_hs";
+    }
     return high_scores_file;
 }
 

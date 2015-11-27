@@ -1,4 +1,3 @@
-#include <boost/lexical_cast.hpp>
 #include "game.h"
 #include "config.h"
 #include "HS_window.h"
@@ -127,8 +126,8 @@ void Game::draw_points() {
     res_string.setPosition(sf::Vector2f(620, 40));
     window->draw(res_string);
 
-    sf::Text points(boost::lexical_cast<std::string>
-                            (board.get_points()) + " pkt", font, 30);
+    sf::Text points(std::to_string(board.get_points())
+                    + " pkt", font, 30);
     points.setColor(sf::Color::White);
     points.setPosition(sf::Vector2f(620, 80));
     window->draw(points);

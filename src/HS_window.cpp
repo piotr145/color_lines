@@ -1,4 +1,3 @@
-#include <boost/lexical_cast.hpp>
 #include "HS_window.h"
 
 extern sf::Font font;
@@ -43,7 +42,7 @@ void HS_window::draw() {
         name.setPosition(sf::Vector2f(10, posy));
         window->draw(name);
 
-        sf::Text points(boost::lexical_cast<std::string>(i.score), font, 30);
+        sf::Text points(std::to_string(i.score), font, 30);
         points.setColor(sf::Color::Black);
         points.setPosition(sf::Vector2f(250, posy));
         window->draw(points);
