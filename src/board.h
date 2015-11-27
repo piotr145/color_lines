@@ -23,7 +23,6 @@ public:
     bool make_move(sf::Vector2u start, sf::Vector2u stop);
     bool is_playing();
     int get_points();
-    void draw();
     bool is_empty(sf::Vector2u a);
     int get_element(int x, int y) const;
 };

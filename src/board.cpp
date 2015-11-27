@@ -199,15 +199,6 @@ int Board::get_points() {
     return points;
 }
 
-void Board::draw() {
-    std::cout << std::endl;
-    for(int y = 0; y < 9; ++y) {
-        for(int x = 0; x < 9; ++x)
-            std::cout << tab[x][y] << " ";
-        std::cout << std::endl; 
-    }
-}
-
 bool Board::is_empty(sf::Vector2u a) {
     return tab[a.x][a.y] == 0;
 }
