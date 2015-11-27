@@ -31,3 +31,7 @@ int Config::get_colors_number() {
 std::string Config::get_high_scores_file() {
     return high_scores_file;
 }
+
+void Config::set_colors_number(int colors) {
+    colors_number = colors;
+}

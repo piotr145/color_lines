@@ -101,6 +101,12 @@ void Game::loop() {
                     board = Board(config->get_colors_number());
                 }
             }
+            if(event.type == sf::Event::TextEntered) {
+                // allow user to change amount of colors by pressing number key
+                if(event.text.unicode > 48 && event.text.unicode < 58) {
+                    config->set_colors_number(event.text.unicode - 48);
+                }
+            }
         }
 
         window->clear(sf::Color::Black);

@@ -20,4 +20,5 @@ public:
     int get_draw_y();
     int get_colors_number();
     std::string get_high_scores_file();
+    void set_colors_number(int colors);
 };
