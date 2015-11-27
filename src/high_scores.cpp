@@ -4,44 +4,43 @@
 extern std::unique_ptr<Config> config;
 
 
-void High_scores::load() {
-    tab.clear(); // clear previous content of tab
+std::vector<HS_Record> High_scores::get_scores() {
+    std::vector<HS_Record> res;
     std::fstream file;
     file.open(config->get_high_scores_file(), std::fstream::in);
     if(!file.is_open()) {
         std::cerr << "WARNING: unable to open high score file" << std::endl;
-        return;
+        return res;
     }
 
     bool cont = false; // true if next value in file is score
     std::string name;
     unsigned score;
     while(!file.eof()) {
-        if(tab.size() >= 10)
+        if(res.size() >= 10)
             break; // we only care about 10 best scores
         if(!cont) {
             file >> name;
         }
         else {
             file >> score;
-            tab.push_back({name, score});
+            res.push_back({name, score});
         }
         cont = !cont;
     }
-
     file.close();
+    return move(res);
 }
 
 bool High_scores::is_high(unsigned int score) {
-    load();
-    if(tab.size() == 0)
+    std::vector<HS_Record> tab = get_scores();
+    if(tab.size() < 10)
         return true;
     return tab[tab.size() - 1].score < score;
 }
 
 void High_scores::update(HS_Record rec) {
-    load();
-    std::vector<HS_Record> newtab;
+    std::vector<HS_Record> tab = get_scores(), newtab;
     int i = 0;
     for(; i < tab.size() && tab[i].score >= rec.score; ++i) {
         newtab.push_back(tab[i]);
@@ -51,16 +50,10 @@ void High_scores::update(HS_Record rec) {
         newtab.push_back(tab[i]);
     }
     newtab.resize(std::min(static_cast<int>(newtab.size()), 10));
-    tab = move(newtab);
-    write();
+    write(newtab);
 }
 
-std::vector<HS_Record> High_scores::get_scores() {
-    load();
-    return tab;
-}
-
-void High_scores::write() {
+void High_scores::write(const std::vector<HS_Record> &tab) {
     std::fstream file;
 
     file.open(config->get_high_scores_file(), std::fstream::out);

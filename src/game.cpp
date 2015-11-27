@@ -8,7 +8,6 @@
 extern std::unique_ptr<Config> config;
 extern sf::Font font;
 extern std::mutex display_mutex;
-extern High_scores high_scores;
 extern std::mutex high_scores_mutex;
 
 int Game::get_pos(int size, float point) {
@@ -83,7 +82,7 @@ void Game::loop() {
                     board.make_move(pos, clicked_field);
                     pos = NULLVECTOR;
                     std::lock_guard<std::mutex> lock(high_scores_mutex);
-                    if(!board.is_playing() && high_scores.is_high(board.get_points())) {
+                    if(!board.is_playing() && High_scores::is_high(board.get_points())) {
                         create_name_window_thread();
                     }
                 }
@@ -94,7 +93,7 @@ void Game::loop() {
                 }
                 if(event.key.code == sf::Keyboard::F2) {
                     std::lock_guard<std::mutex> lock(high_scores_mutex);
-                    if(high_scores.is_high(board.get_points())) {
+                    if(High_scores::is_high(board.get_points())) {
                         create_name_window_thread();
                     }
                     board = Board(config->get_colors_number());
@@ -145,7 +144,7 @@ void Game::draw_game_over() {
 
 void Game::create_HS_window_thread() {
     std::lock_guard<std::mutex> lock(high_scores_mutex);
-    help_windows.emplace_back(new sf::Thread(HS_window_create, high_scores.get_scores()));
+    help_windows.emplace_back(new sf::Thread(HS_window_create, High_scores::get_scores()));
     help_windows.back()->launch();
 }
 

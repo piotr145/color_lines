@@ -6,11 +6,9 @@
 
 std::unique_ptr<Config> config;
 sf::Font font;
-High_scores high_scores;
 std::mutex high_scores_mutex;
 //app will crash if two thread run sf::Window->display() simultaneously
 std::mutex display_mutex;
-
 
 
 void load_font() {

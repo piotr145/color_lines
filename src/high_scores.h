@@ -8,12 +8,9 @@ public:
 };
 
 class High_scores {
-private:
-    std::vector<HS_Record> tab;
 public:
-    void load();
-    bool is_high(unsigned int score);
-    void update(HS_Record rec);
-    void write();
-    std::vector<HS_Record> get_scores();
+    static bool is_high(unsigned int score);
+    static void update(HS_Record rec);
+    static void write(const std::vector<HS_Record> &tab);
+    static std::vector<HS_Record> get_scores();
 };

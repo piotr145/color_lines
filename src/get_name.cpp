@@ -1,6 +1,5 @@
 #include "get_name.h"
 
-extern High_scores high_scores;
 extern std::mutex high_scores_mutex;
 extern std::mutex display_mutex;
 extern sf::Font font;
@@ -33,7 +32,7 @@ void Get_name_window::window_loop() {
                 if(event.key.code == sf::Keyboard::Return) {
                     if(name.size() < 10) {
                         std::lock_guard<std::mutex> lock(high_scores_mutex);
-                        high_scores.update({name, score});
+                        High_scores::update({name, score});
                         window->close();
                     }
                     else {
